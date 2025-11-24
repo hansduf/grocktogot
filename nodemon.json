@@ -1,0 +1,9 @@
+{
+  "watch": ["index.js", "config"],
+  "ignore": ["node_modules", ".git", "client_data", "temp*.png", "temp*.webp"],
+  "ext": "js,json",
+  "delay": 500,
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

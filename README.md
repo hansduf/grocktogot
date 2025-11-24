@@ -1,119 +1,252 @@
-# StickerWhatsAppBOT
-<p align="center">
+# 🎨 StickerWhatsAppBOT - Enhanced Edition
 
-  <img alt="@stickerwhatsappbot" style="width: 150px;" src="https://github.com/DrelezTM/StickerWhatsAppBOT/assets/72683265/d3d504a6-7ce4-4937-8182-c37b8a86b456">
-</p>
 <div align="center">
-  <h3>StickerWhatsAppBOT</h3>
-  <p>Sticker WhatsAppBOT with <a href="https://github.com/pedroslopez/whatsapp-web.js/">whatsapp-web.js</a> and <a href="https://nodejs.org/en/">nodejs</a></p>
-</div>
-<div align="center">
-  <a href="#warning">Warning</a> | <a href="https://dsc.gg/DrelezTM">Report Bug</a> | <a href="https://github.com/DrelezTM/StickerWhatsAppBOT/issues">Issues</a>
+  <p><strong>Advanced WhatsApp Sticker Bot with Text-to-Sticker Generation</strong></p>
+  <p>Built with <a href="https://github.com/pedroslopez/whatsapp-web.js/">whatsapp-web.js</a>, <a href="https://nodejs.org/">Node.js</a>, and Canvas</p>
 </div>
 
-## Installation 📑
-* Clone Repository
-  ```sh
-  git clone https://github.com/DrelezTM/StickerWhatsAppBOT
-  ```
-* Install Modules
-  ```sh
-  npm install
-  ```
-* Start
-  ```sh
-  npm start
-  ```
-* Scan QR
-  <img alt="@stickerwhatsappbot" src="https://github.com/DrelezTM/StickerWhatsAppBOT/assets/72683265/2ce59cf0-f26b-4cd0-be1a-12f985720ad9">
+---
 
-* Ready
-  <img alt="@stickerwhatsappbot" src="https://github.com/DrelezTM/StickerWhatsAppBOT/assets/72683265/76cc9f7a-6a5f-4fc2-896c-f54d9e1462f5">
+## 📋 Features
 
- ## Configuration 🗝
-* [config.json](https://github.com/DrelezTM/StickerWhatsAppBOT/blob/main/config/config.json)
-  ```json
-  {
-    "name": "StickerBOT",
-    "author": "@DrelezTM",
-    "prefix": "!",
-    "timezone": "Asia/Jakarta",
-    "groups": true
-  }
-  ```
-  * config.name : *name for the sticker* (string)
-  * config.author : *name for sticker maker* (string)
-  * config.prefix : *prefix for command* (string)
-  * config.timezone : *timezone displays the time at the specified location* (string)
-  * config.groups : *to filter whether bots can respond to group chats or not* (boolean)
-* [console.txt](https://github.com/DrelezTM/StickerWhatsAppBOT/blob/main/config/console.txt)
-  ```txt
-  
-    /$$$$$$   /$$     /$$           /$$                           /$$$$$$$   /$$$$$$  /$$$$$$$$
-   /$$__  $$ | $$    |__/          | $$                          | $$__  $$ /$$__  $$|__  $$__/
-  | $$  \__//$$$$$$   /$$  /$$$$$$$| $$   /$$  /$$$$$$   /$$$$$$ | $$  \ $$| $$  \ $$   | $$   
-  |  $$$$$$|_  $$_/  | $$ /$$_____/| $$  /$$/ /$$__  $$ /$$__  $$| $$$$$$$ | $$  | $$   | $$   
-   \____  $$ | $$    | $$| $$      | $$$$$$/ | $$$$$$$$| $$  \__/| $$__  $$| $$  | $$   | $$   
-   /$$  \ $$ | $$ /$$| $$| $$      | $$_  $$ | $$_____/| $$      | $$  \ $$| $$  | $$   | $$   
-  |  $$$$$$/ |  $$$$/| $$|  $$$$$$$| $$ \  $$|  $$$$$$$| $$      | $$$$$$$/|  $$$$$$/   | $$   
-   \______/   \___/  |__/ \_______/|__/  \__/ \_______/|__/      |_______/  \______/    |__/   
-  ```
-  You can replace ascii in https://patorjk.com/software/taag/
+| Feature | Status |
+|:--------|:------:|
+| 📸 Image to Sticker | ✅ |
+| 🎬 Video to Sticker | ✅ |
+| 🎞️ GIF to Sticker | ✅ |
+| 🖼️ Sticker to Image | ✅ |
+| 📝 Text to Sticker (NEW) | ✅ |
+| ✍️ Add Text to Image | ✅ |
+| ✍️ Add Text to Sticker | ✅ |
+| 🏷️ Change Sticker Metadata | ✅ |
+| 🎯 Reply-based Commands | ✅ |
+| 🌍 Multi-timezone Support | ✅ |
+| 💬 Group Chat Support | ✅ |
+| 🔄 Auto-reload on Code Changes | ✅ |
 
-## Features 📋
-  |                   Features                  	| Status 	|
-  |:-------------------------------------------:	|:------:	|
-  | Image to Sticker                            	|    ✅   	|
-  | Video to Sticker                            	|    ✅   	|
-  | Gif to Sticker                              	|    ✅   	|
-  | Sticker to Image                            	|    ✅   	|
-  | Sticker to Video                            	|    ❎   	|
-  | Change Sticker Name & Sticker Author        	|    ✅   	|
-  | Prefix can be set in the config/config.json 	|    ✅   	|
-  | Supports Reply Image to Sticker             	|    ✅   	|
-  | Supports Reply Video to Sticker             	|    ✅   	|
-  | Supports Reply Gif to Sticker               	|    ✅   	|
-  | Supports Reply Stickers to Images           	|    ✅   	|
+---
 
-## Commands 💭
-  <table class="tg">
-    <thead>
-      <tr>
-        <th class="tg-0pky">Commands</th>
-        <th class="tg-0pky">Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="tg-0pky">!sticker</td>
-        <td class="tg-0pky">Make Image/Video/Gif into Sticker. You can also send Image/Video/Gif into Sticker directly without Command. [in the Caption or Reply message]</td>
-      </tr>
-      <tr>
-        <td class="tg-0pky">!image</td>
-        <td class="tg-0pky">Make Sticker into Image. You can also send Image/Video/Gif into Sticker directly without Command. [in the Reply message]</td>
-      </tr>
-      <tr>
-        <td class="tg-0pky">!change &lt;name&gt; | &lt;author&gt;</td>
-        <td class="tg-0pky">Change Sticker Name &amp; Sticker Author as you wish. [in the Reply message]</td>
-      </tr>
-    </tbody>
-  </table>
+## 🚀 Quick Start
 
-## Built With 🛠
-* [WhatsApp-web.js](https://github.com/pedroslopez/whatsapp-web.js/)
-* [QRCode-Terminal](https://www.npmjs.com/package/qrcode-terminal)
-* [Moment-Timezone](https://www.npmjs.com/package/moment-timezone)
-* [Colors](https://www.npmjs.com/package/colors)
-* [FS](https://www.npmjs.com/package/fs)
+### Prerequisites
+- Node.js v16+ 
+- FFmpeg (for WebP conversion)
+- npm
 
-## Error or Bug 🐞
-* [Discord](https://dsc.gg/DrelezTM)
-* [YouTube](https://www.youtube.com/p/DrelezTM)
-* [Instagram](https://www.instagram.com/DrelezTM)
-* [Issues](https://github.com/DrelezTM/StickerWhatsAppBOT/issues)
+### Installation
 
-## License 📜
-* [License](https://github.com/DrelezTM/StickerWhatsAppBOT/blob/main/LICENSE)
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd StickerWhatsAppBOT
 
-## Warning 🚧
-<p id="warning">Only works on Windows, MacOS, and Linux. <b>Can't work on Android/Termux</b>!</p>
+# Install dependencies
+npm install
+
+# Start the bot
+npm start
+
+# Or for development with auto-reload
+npm run dev
+```
+
+### First Run
+1. Run `npm start` or `npm run dev`
+2. Scan the QR code with WhatsApp
+3. Bot is ready to use!
+
+---
+
+## ⚙️ Configuration
+
+Edit `config/config.json`:
+
+```json
+{
+  "name": "yass",
+  "author": "halow tyass",
+  "prefix": ",",
+  "timezone": "Asia/Jakarta",
+  "groups": true,
+  "log": true
+}
+```
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `name` | string | Sticker pack name |
+| `author` | string | Sticker author name |
+| `prefix` | string | Command prefix (e.g., `,` or `!`) |
+| `timezone` | string | Timezone for logging |
+| `groups` | boolean | Enable bot in group chats |
+| `log` | boolean | Enable console logging |
+
+---
+
+## 💬 Commands
+
+### Convert Media to Sticker
+```
+,convert          - Convert image/video/sticker (auto-detect)
+,sticker          - Convert image/video to sticker (reply to media)
+```
+
+### Create Sticker from Text ⭐ NEW
+```
+,textsticker <text>    - Create sticker with justified text
+                        Auto-sizing: 110px (short) to 44px (long)
+Example: ,textsticker Hello World
+```
+
+### Add Text to Media
+```
+,addtext <text>        - Add text overlay to image (reply to image)
+,sticktext <text>      - Add text overlay to sticker (reply to sticker)
+Example: ,addtext Important Info
+```
+
+### Sticker Tools
+```
+,image                 - Convert sticker to image (reply to sticker)
+,change <name>|<author> - Change sticker metadata (reply to sticker)
+Example: ,change MySticker|MyName
+```
+
+### Help
+```
+,halo    or    halo    - Show all available commands
+```
+
+---
+
+## 🎯 Text-to-Sticker Features
+
+- **Dynamic Font Sizing**: Automatically adjusts font size based on text length
+- **Justified Text**: Full width text alignment (rata kanan kiri)
+- **Auto Line Wrapping**: Intelligently wraps long text
+- **Centered Layout**: Vertically centered text in frame
+- **Border**: Subtle gray border for visual appeal
+
+### Font Size Calculator
+- ≤15 chars: 110px
+- ≤30 chars: 100px
+- ≤50 chars: 90px
+- ≤80 chars: 80px
+- ≤120 chars: 70px
+- ≤180 chars: 58px
+- \>180 chars: 44px
+
+---
+
+## 🛠️ Built With
+
+- **whatsapp-web.js** - WhatsApp Web automation
+- **Canvas** - Text rendering and image manipulation
+- **Jimp** - Image processing and manipulation
+- **FFmpeg** - Media conversion (WebP support)
+- **Moment-Timezone** - Timezone handling
+- **Colors** - Terminal output coloring
+- **Nodemon** - Development auto-reload
+
+---
+
+## 📁 Project Structure
+
+```
+StickerWhatsAppBOT/
+├── index.js                 # Main bot logic
+├── package.json            # Project dependencies
+├── nodemon.json           # Nodemon configuration
+├── config/
+│   ├── config.json        # Bot configuration
+│   └── console.txt        # Startup ASCII art
+└── client_data/           # WhatsApp session data
+```
+
+---
+
+## 🔍 How It Works
+
+### Text-to-Sticker Generation
+1. User sends `,textsticker <text>`
+2. Canvas calculates optimal font size based on text length
+3. Text is wrapped to fit within boundaries
+4. Each line (except last) is justified to full width
+5. PNG buffer is generated and sent as sticker
+
+### Text Overlay on Sticker
+1. User replies to sticker with `,sticktext <text>`
+2. WebP sticker is converted to PNG via FFmpeg
+3. Jimp loads the PNG image
+4. Canvas overlays text at bottom with semi-transparent background
+5. Result is sent back as edited sticker
+
+---
+
+## 🎮 Development
+
+### Auto-reload During Development
+```bash
+npm run dev
+```
+
+Nodemon watches for changes in:
+- `index.js`
+- `config/` directory
+
+Automatically restarts on file changes with a 500ms delay.
+
+### File Watching
+```json
+{
+  "watch": ["index.js", "config"],
+  "ignore": ["node_modules", ".git", "client_data", "temp*.png", "temp*.webp"],
+  "ext": "js,json"
+}
+```
+
+---
+
+## ⚠️ Important Notes
+
+- ✅ Works on Windows, macOS, and Linux
+- ❌ Does NOT work on Android/Termux
+- Requires FFmpeg for WebP sticker support
+- Session data is stored in `client_data/` folder
+- Temporary files are auto-cleaned up
+
+---
+
+## 🚨 Troubleshooting
+
+### Bot Not Responding
+- Check if bot is authenticated (scan QR code again)
+- Verify prefix in `config/config.json`
+- Check console for error messages
+
+### WebP Conversion Error
+- Ensure FFmpeg is installed and accessible
+- Update config: `"ffmpeg": "./ffmpeg.exe"` (Windows)
+
+### Text Not Justifying Properly
+- Text should contain multiple words for justify to work
+- Single-word text will be centered instead
+
+### Auto-reload Not Working
+- Install nodemon: `npm install --save-dev nodemon`
+- Run with: `npm run dev`
+
+---
+
+## 📝 License
+
+MIT License - Feel free to use and modify for personal use.
+
+---
+
+## 👨‍💻 Author
+
+**Developed with ❤️ by halow tyass**
+
+*Last Updated: November 2025*
+
