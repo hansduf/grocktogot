@@ -384,9 +384,7 @@ client.on('message', async (message) => {
             if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed halo command`.yellow);
             
             const helpText = `
-╔══════════════════════════════════════╗
-║  🎨 STICKERBOT - Command Help 🎨     ║
-╚══════════════════════════════════════╝
+SALAMM BAHAGIAA💥🔥💥🔥💥
 
 📌 *CARA PAKAI:*
 
@@ -394,7 +392,7 @@ client.on('message', async (message) => {
    • Kirim foto/video + caption: ${config.prefix}convert
    • Atau reply foto/video + ketik: ${config.prefix}convert
 
-2️⃣ *Buat Sticker dari Teks* ⭐ *NEW*
+2️⃣ *Buat Sticker dari Teks*
    • Ketik: ${config.prefix}textsticker <text>
    • Fitur: Auto-size font, justified text, centered
    • Contoh: ${config.prefix}textsticker Halo Dunia
@@ -414,14 +412,10 @@ client.on('message', async (message) => {
    • Reply sticker + ketik: ${config.prefix}change <nama> | <author>
    • Contoh: ${config.prefix}change MySticker | MyName
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💡 *Tips:*
 • Gunakan prefix: ${config.prefix}
 • Perintah harus jelas dan tepat
-• Text-to-sticker auto-adjust ukuran & layout
-• Hasil sticker bisa langsung dishare
 
-✅ Ready to use! Coba sekarang!
 `;
             
             client.sendMessage(message.from, helpText);
@@ -453,7 +447,7 @@ client.on('message', async (message) => {
                 const action = isToSticker ? 'sticker' : 'image';
                 
                 if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}convert (${mediaType} → ${action})`.yellow);
-                client.sendMessage(message.from, "bentar yass..");
+                client.sendMessage(message.from, config.messages.loading);
                 
                 try {
                     const media = await mediaToConvert.downloadMedia();
@@ -465,12 +459,12 @@ client.on('message', async (message) => {
                             stickerName: config.name,
                             stickerAuthor: config.author
                         }).then(() => {
-                            client.sendMessage(message.from, `nih yass!`);
+                            client.sendMessage(message.from, config.messages.success);
                         });
                     } else {
                         // Convert to image
                         client.sendMessage(message.from, media).then(() => {
-                            client.sendMessage(message.from, `nih yass!`);
+                            client.sendMessage(message.from, config.messages.success);
                         });
                     }
                 } catch {
@@ -485,7 +479,7 @@ client.on('message', async (message) => {
         // Image to Sticker (Auto && Caption) - DISABLED
         // if ((message.type == "image" || message.type == "video" || message.type  == "gif") || (message._data.caption == `${config.prefix}sticker`)) {
         //     if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}sticker (${message.type})`.yellow);
-        //     client.sendMessage(message.from, "bentar yass..");
+        //     client.sendMessage(message.from, config.messages.loading);
         //     try {
         //         const media = await message.downloadMedia();
         //         client.sendMessage(message.from, media, {
@@ -493,10 +487,10 @@ client.on('message', async (message) => {
         //             stickerName: config.name, // Sticker Name = Edit in 'config/config.json'
         //             stickerAuthor: config.author // Sticker Author = Edit in 'config/config.json'
         //         }).then(() => {
-        //             client.sendMessage(message.from, "nih yass!");
+        //             client.sendMessage(message.from, config.messages.success);
         //         });
         //     } catch {
-        //         client.sendMessage(message.from, "error yass, chat farhan yaa...");
+        //         client.sendMessage(message.from, config.messages.error);
         //     }
         // }
 
@@ -505,7 +499,7 @@ client.on('message', async (message) => {
             if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}sticker (reply)`.yellow);
             const quotedMsg = await message.getQuotedMessage(); 
             if (message.hasQuotedMsg && quotedMsg.hasMedia) {
-                client.sendMessage(message.from, "bentar yass..");
+                client.sendMessage(message.from, config.messages.loading);
                 try {
                     const media = await quotedMsg.downloadMedia();
                     client.sendMessage(message.from, media, {
@@ -513,10 +507,10 @@ client.on('message', async (message) => {
                         stickerName: config.name, // Sticker Name = Edit in 'config/config.json'
                         stickerAuthor: config.author // Sticker Author = Edit in 'config/config.json'
                     }).then(() => {
-                        client.sendMessage(message.from, "nih yass!");
+                        client.sendMessage(message.from, config.messages.success);
                     });
                 } catch {
-                    client.sendMessage(message.from, "error yass, chat farhan yaa...");
+                    client.sendMessage(message.from, config.messages.error);
                 }
             } else {
                 client.sendMessage(message.from, "*[❎]* Reply Image First!");
@@ -525,14 +519,14 @@ client.on('message', async (message) => {
         // Sticker to Image (Auto) - DISABLED
         // } else if (message.type == "sticker") {
         //     if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Auto convert sticker → image`.yellow);
-        //     client.sendMessage(message.from, "bentar yass..");
+        //     client.sendMessage(message.from, config.messages.loading);
         //     try {
         //         const media = await message.downloadMedia();
         //         client.sendMessage(message.from, media).then(() => {
-        //             client.sendMessage(message.from, "nih yass!");
+        //             client.sendMessage(message.from, config.messages.success);
         //         });  
         //     } catch {
-        //         client.sendMessage(message.from, "error yass, chat farhan yaa...");
+        //         client.sendMessage(message.from, config.messages.error);
         //     }
 
         // Sticker to Image (With Reply Sticker)
@@ -540,14 +534,14 @@ client.on('message', async (message) => {
             if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}image (reply)`.yellow);
             const quotedMsg = await message.getQuotedMessage(); 
             if (message.hasQuotedMsg && quotedMsg.hasMedia) {
-                client.sendMessage(message.from, "bentar yass..");
+                client.sendMessage(message.from, config.messages.loading);
                 try {
                     const media = await quotedMsg.downloadMedia();
                     client.sendMessage(message.from, media).then(() => {
-                        client.sendMessage(message.from, "nih yass!");
+                        client.sendMessage(message.from, config.messages.success);
                     });
                 } catch {
-                    client.sendMessage(message.from, "error yass, chat farhan yaa...");
+                    client.sendMessage(message.from, config.messages.error);
                 }
             } else {
                 client.sendMessage(message.from, "*[❎]* Reply Sticker First!");
@@ -561,7 +555,7 @@ client.on('message', async (message) => {
                 let author = message.body.split('|')[1].trim();
                 const quotedMsg = await message.getQuotedMessage(); 
                 if (message.hasQuotedMsg && quotedMsg.hasMedia) {
-                    client.sendMessage(message.from, "bentar yass..");
+                    client.sendMessage(message.from, config.messages.loading);
                     try {
                         const media = await quotedMsg.downloadMedia();
                         client.sendMessage(message.from, media, {
@@ -569,10 +563,10 @@ client.on('message', async (message) => {
                             stickerName: name,
                             stickerAuthor: author
                         }).then(() => {
-                            client.sendMessage(message.from, "nih yass!");
+                            client.sendMessage(message.from, config.messages.success);
                         });
                     } catch {
-                        client.sendMessage(message.from, "error yass, chat farhan yaa...");
+                        client.sendMessage(message.from, config.messages.error);
                     }
                 } else {
                     client.sendMessage(message.from, "*[❎]* Reply Sticker First!");
@@ -591,7 +585,7 @@ client.on('message', async (message) => {
             const quotedMsg = await message.getQuotedMessage();
             if (message.hasQuotedMsg && quotedMsg.hasMedia && (quotedMsg.type === 'image' || quotedMsg.type === 'video')) {
                 if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}addtext (reply)`.yellow);
-                client.sendMessage(message.from, "bentar yass..");
+                client.sendMessage(message.from, config.messages.loading);
                 try {
                     const media = await quotedMsg.downloadMedia();
                     const imageBuffer = Buffer.from(media.data, 'base64');
@@ -602,12 +596,12 @@ client.on('message', async (message) => {
                         stickerName: config.name,
                         stickerAuthor: config.author
                     }).then(() => {
-                        client.sendMessage(message.from, "nih yass!");
+                        client.sendMessage(message.from, config.messages.success);
                     });
                 } catch (error) {
                     console.error(`[${moment().tz(config.timezone).format('HH:mm:ss')}] Error in addtext:`.red, error.message);
                     console.error(error.stack);
-                    client.sendMessage(message.from, "error yass, chat farhan yaa...");
+                    client.sendMessage(message.from, config.messages.error);
                 }
             } else {
                 client.sendMessage(message.from, `*[❎]* Reply Image First!`);
@@ -623,7 +617,7 @@ client.on('message', async (message) => {
             const quotedMsg = await message.getQuotedMessage();
             if (message.hasQuotedMsg && quotedMsg.hasMedia && quotedMsg.type === 'sticker') {
                 if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}sticktext (reply)`.yellow);
-                client.sendMessage(message.from, "bentar yass..");
+                client.sendMessage(message.from, config.messages.loading);
                 try {
                     const media = await quotedMsg.downloadMedia();
                     const imageBuffer = Buffer.from(media.data, 'base64');
@@ -634,12 +628,12 @@ client.on('message', async (message) => {
                         stickerName: config.name,
                         stickerAuthor: config.author
                     }).then(() => {
-                        client.sendMessage(message.from, "nih yass!");
+                        client.sendMessage(message.from, config.messages.success);
                     });
                 } catch (error) {
                     console.error(`[${moment().tz(config.timezone).format('HH:mm:ss')}] Error in sticktext:`.red, error.message);
                     console.error(error.stack);
-                    client.sendMessage(message.from, "error yass, chat farhan yaa...");
+                    client.sendMessage(message.from, config.messages.error);
                 }
             } else {
                 client.sendMessage(message.from, `*[❎]* Reply Sticker First!`);
@@ -653,7 +647,7 @@ client.on('message', async (message) => {
                 return;
             }
             if (config.log) console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] ${chatType} | ${senderName}: Executed ${config.prefix}textsticker`.yellow);
-            client.sendMessage(message.from, "bentar yass..");
+            client.sendMessage(message.from, config.messages.loading);
             try {
                 const imageBuffer = await generateTextImage(textContent);
                 // Save to temporary file for whatsapp-web.js compatibility
@@ -666,13 +660,13 @@ client.on('message', async (message) => {
                     stickerName: config.name,
                     stickerAuthor: config.author
                 }).then(() => {
-                    client.sendMessage(message.from, "nih yass!");
+                    client.sendMessage(message.from, config.messages.success);
                     // Clean up temp file
                     fs.unlinkSync(tempPath);
                 });
             } catch (error) {
                 console.error('Error:', error.message);
-                client.sendMessage(message.from, "error yass, chat farhan yaa...");
+                client.sendMessage(message.from, config.messages.error);
             }
         }
         

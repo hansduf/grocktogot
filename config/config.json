@@ -1,8 +1,13 @@
 {
-    "name": "Tyass",
+    "name": "ily",
     "author": "SALAM BAHAGIAA💥🔥💥🔥💥",
     "prefix": ",",
     "timezone": "Asia/Jakarta",
     "groups": true,
-    "log": true
+    "log": true,
+    "messages": {
+        "loading": "bentar tyass..",
+        "success": "ini nihh buat tyass",
+        "error": "error yass, chat farhan yaa..."
+    }
 }
