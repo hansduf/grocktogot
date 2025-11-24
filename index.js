@@ -5,6 +5,8 @@ const colors = require('colors');
 const fs = require('fs');
 const Jimp = require('jimp');
 const { createCanvas } = require('canvas');
+const express = require('express');
+const qrcodelib = require('qrcode');
 
 const client = new Client({
     restartOnAuthFail: true,
@@ -40,6 +42,18 @@ const client = new Client({
     bypassCSRF: true
 });
 const config = require('./config/config.json');
+
+// Web Server Setup
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// State variables
+let currentQR = null;
+let isConnected = false;
+
+// Middleware
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 
 // Function to generate text image using Canvas with dynamic font sizing
 async function generateTextImage(text) {
@@ -287,11 +301,15 @@ async function addTextToImage(imageBuffer, text) {
 }
 
 client.on('qr', (qr) => {
+    currentQR = qr;
+    isConnected = false;
     console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] Scan the QR below : `);
     qrcode.generate(qr, { small: true });
 });
 
 client.on('ready', () => {
+    isConnected = true;
+    currentQR = null;
     console.clear();
     const consoleText = './config/console.txt';
     fs.readFile(consoleText, 'utf-8', (err, data) => {
@@ -679,6 +697,115 @@ client.on('message', async (message) => {
             }
         }
     }
+});
+
+// Express Routes
+app.get('/', async (req, res) => {
+    if (isConnected) {
+        // Bot sudah terhubung - tampilkan halaman utama
+        res.send(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>${config.name} - Connected</title>
+                <style>
+                    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f0f0; }
+                    .container { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+                    h1 { color: #25d366; margin: 0; font-size: 2.5em; }
+                    .status { font-size: 1.2em; color: #555; margin: 20px 0; }
+                    .dot { display: inline-block; width: 10px; height: 10px; background: #25d366; border-radius: 50%; animation: pulse 1s infinite; }
+                    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h1>✅ ${config.name}</h1>
+                    <p class="status"><span class="dot"></span> Bot Terhubung</p>
+                    <p style="color: #999; font-size: 0.9em;">WhatsApp Web telah terkoneksi<br>Bot siap menerima pesan</p>
+                </div>
+            </body>
+            </html>
+        `);
+    } else if (currentQR) {
+        // Masih menunggu scan - tampilkan QR code
+        qrcodelib.toDataURL(currentQR, { width: 300 }, (err, url) => {
+            if (err) {
+                return res.status(500).send('Error generating QR code');
+            }
+            res.send(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${config.name} - Scan QR</title>
+                    <style>
+                        body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+                        .container { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+                        h1 { color: #333; margin: 0 0 20px 0; font-size: 1.8em; }
+                        .qr-container { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
+                        img { max-width: 300px; border: 2px solid #ddd; }
+                        .instructions { color: #666; margin-top: 20px; font-size: 0.95em; }
+                        .scan-icon { font-size: 3em; margin-bottom: 10px; }
+                    </style>
+                    <meta http-equiv="refresh" content="3">
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="scan-icon">📱</div>
+                        <h1>${config.name}</h1>
+                        <div class="qr-container">
+                            <p style="color: #999; margin: 0 0 15px 0; font-size: 0.9em;">Scan dengan WhatsApp</p>
+                            <img src="${url}" alt="QR Code">
+                        </div>
+                        <div class="instructions">
+                            <p>1. Buka WhatsApp di ponselmu</p>
+                            <p>2. Tap Menu atau Pengaturan dan pilih Linked Devices</p>
+                            <p>3. Arahkan kamera ke QR Code di atas</p>
+                            <p style="color: #25d366; margin-top: 15px;">Halaman akan otomatis update...</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `);
+        });
+    } else {
+        // Belum ada QR code - tunggu
+        res.send(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>${config.name} - Initializing</title>
+                <style>
+                    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f0f0; }
+                    .container { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+                    h1 { color: #667eea; margin: 0; }
+                    .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+                    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+                </style>
+                <meta http-equiv="refresh" content="2">
+            </head>
+            <body>
+                <div class="container">
+                    <h1>${config.name}</h1>
+                    <div class="spinner"></div>
+                    <p style="color: #666;">Initializing bot...</p>
+                </div>
+            </body>
+            </html>
+        `);
+    }
+});
+
+// API endpoint untuk status
+app.get('/api/status', (req, res) => {
+    res.json({
+        connected: isConnected,
+        hasQR: currentQR !== null
+    });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`[${moment().tz(config.timezone).format('HH:mm:ss')}] Web UI running at http://localhost:${PORT}`.cyan);
 });
 
 client.initialize();
