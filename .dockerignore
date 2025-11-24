@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.DS_Store
+README.md
+LICENSE
+RAILWAY_DEPLOY.md
+.editorconfig
+nodemon.json
+config/console.txt
+client_data
+.wwebjs_cache
+temp*.png
+temp*.webp
