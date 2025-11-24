@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-# Install system dependencies (including ffmpeg)
+# Install system dependencies (including ffmpeg and chromium)
 RUN apk add --no-cache \
     python3 \
     make \
@@ -9,9 +9,20 @@ RUN apk add --no-cache \
     jpeg-dev \
     pango-dev \
     giflib-dev \
-    ffmpeg
+    ffmpeg \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
 
 WORKDIR /app
+
+# Set environment variables for Puppeteer/Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    NODE_ENV=production
 
 # Copy package files
 COPY package*.json ./
